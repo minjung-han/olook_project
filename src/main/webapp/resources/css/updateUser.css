@@ -1,0 +1,48 @@
+@charset "UTF-8";
+.text-center{
+	margin-top: 10%;
+	margin-bottom: 20%;
+}
+.form-updateUser {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-updateUser .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-updateUser .form-control:focus {
+  z-index: 2;
+}
+.form-updateUser input[type=email] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-updateUser input[type=password] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.ps_box{
+	position: relative;
+	width: 40%;
+	height: 51px;
+	padding: 10px 110px 10px 14px;
+	background: #fff;
+	vertical-align: top;
+	margin-bottom: 10%;
+}
+.intro{
+	width: 100%;
+	height: 390px;
+}
+textarea {
+	padding: 15px;
+}

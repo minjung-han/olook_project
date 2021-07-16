@@ -1,0 +1,117 @@
+@charset "UTF-8";
+.navbar-brand img{
+	width: 100px;
+	height: auto;
+}
+dl,ol,ul{list-style: none;}
+.title{
+	margin-bottom: 16px;
+	padding-left: 26px;	
+	font-size: 26px;
+}
+.WritingHeader{
+	position: relative;
+	margin-top: 20p;
+	border-bottom: 1px solid #323232;
+}
+.SpecialMenu{
+	margin: -12px auto 20px;
+	border: 2px solid #dadada;
+	box-sizing: border-box;
+}
+.SpecialMenu.menu_list{
+	display: flex;
+	padding: 14px 24px;
+}
+.SpecialMenu.menu_list.item{
+	position: relative;
+	padding-left: 22px;
+	overflow: hidden;
+}
+.SpecialMenu.menu_list.item:first-child{
+	padding-left: 0;
+}
+.save_area{
+	display: inline-block;
+	position: absolute;
+	bottom: 12px;
+	right: 0;
+	height: 36px;
+	margin-left: 4px;
+	border-radius: 6px;
+	box-sizing: border-box;
+	font: 13px;
+}
+.save{
+	padding: 0 10px 0 11px;
+	line-height: 36px;
+	font-weight: 700;
+}
+.reset{
+	height: 36px;
+	margin-left: 10px;
+	padding: 0 12px;
+	line-height: 36px;
+}
+.home{
+	height: 36px;
+	margin-right: 10px;
+	padding: 0 12px;
+	line-height: 36px;
+}
+#content{
+	width: 750px;
+	margin: 0 auto;
+	padding: 3%;
+}
+label{
+	cursor: pointer;
+}
+.row_group{
+	overflow: hidden;
+	width: 100%;
+	margin-top: 20px;
+}
+.row_group.insert_row{
+	margin-bottom: 24px;	
+}
+.insert_title{
+	margin: 19px 0 19px 8px;
+	font-size: 17px;
+	font-weight: 700;
+}
+.ps_box{
+	position: relative;
+	width: 40%;
+	height: 51px;
+	border: 1px solid #dadada;
+	padding: 10px 110px 10px 14px;
+	background: #fff;
+	vertical-align: top;
+}
+.string{
+	position: relative;
+	width: 40%;
+	height: 29px;
+	padding-right: 25px;
+	border: none;
+	background: #fff;
+	box-sizing: border-box;
+	z-index: 10;
+}
+.intro{
+	width: 100%;
+	height: 390px;
+}
+.info{
+	padding-left: 6%;
+	width: 100%;
+}
+.insert-btn{
+	margin-top: 3%;
+	display: flex;
+	justify-content: center;
+}
+.btn-group{
+	margin-right: 3%;
+}

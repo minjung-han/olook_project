@@ -1,0 +1,45 @@
+@charset "UTF-8";
+.echeck{
+	display: flex;
+	justify-content: center;
+	margin: 20%;
+}
+.echeck-input{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	padding: 5%;
+}
+.input-body{
+	display: flex;
+	justify-content: center;
+	padding: 0;
+}
+.check{
+	margin-left: 20%;
+	margin-bottom: 5%;
+}
+.check2{
+	margin-top: 2%;
+	margin-left: 2%;
+}
+.echeck-btn{
+	height: 50px;
+}
+.echeck-btn:hover{
+	background: #7E6ECD;
+	color: white;
+}
+.echeck-input input[type=button]{
+	margin-left: 5%;
+	font-weight: bold;
+}
+.echeck-body{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	width: 100%;
+	height: 100%;
+}

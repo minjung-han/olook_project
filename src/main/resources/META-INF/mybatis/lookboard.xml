@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.gb.olook.mapper.LookboardMapper"> <!-- namespace : java 인터페이스와 매핑될 파일 지정. -->
+	
+	<!-- sql 정의하는 태그의 id값은 매퍼 인터페이스의 메소드 이름과 동일하도록 설정합니다.  -->
+	
+	
+	<update id="cnt" parameterType="int">
+		update look_board set loview_cnt = loview_cnt+1 where look_idx=#{idx}
+	</update>
+	<update id="cmt" parameterType="int">
+		update look_board set look_cmt = (SELECT count(*) FROM look_comment WHERE look_ref=#{idx}) where look_idx=#{idx}
+	</update>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from look_board
+	</select>
+	
+	<select id="getPagelist" parameterType="PageDTO" resultType="LookBoard">
+		select * from look_board order by look_idx desc LIMIT #{startNo},#{pageSize}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from look_board where look_idx=#{idx}
+	</delete>
+	
+	<select id="getBoardOne" parameterType="int" resultType="LookBoard">
+		select * from look_board where look_idx=#{idx}
+	</select>
+	
+	<!-- 테이블에 pk , 자동증가 되는 컬럼을 설정합니다.   insert와 update 쿼리에서 사용합니다.-->
+	<insert id="insert" parameterType="LookBoard" useGeneratedKeys="true" keyProperty="look_idx">
+         <!-- 예비용 옷종류등을 넣어야함! -->
+      insert into 
+         look_board(user_nickname,look_cmt,loview_cnt,user_email,look_filename,look_content,look_top,look_bottom,look_shoes,look_acc,look_height,look_weight)
+      values
+         (#{user_nickname},0,0,#{user_email},#{look_filename},#{look_content},#{look_top},#{look_bottom},#{look_shoes},#{look_acc},#{look_height},#{look_weight})
+         
+   </insert>
+	
+	<update id="update" parameterType="LookBoard">
+		update look_board set look_content=#{look_content}, look_top=#{look_top},look_bottom=#{look_bottom}, look_shoes=#{look_shoes},look_acc=#{look_acc},look_height=#{look_height},look_weight=#{look_weight} where look_idx=#{look_idx}
+	</update>
+	
+	<select id="getAll" resultType="LookBoard"> <!-- LookBoard는 com.gb.olook.model.LookboardDTO의 별칭 -->
+		select * from look_board
+	</select>
+	
+	   <!-- 검색 SQL : 검색 기준 컬럼은 1) 내용 2) 이름  3) 제목  4) 내용+제목   *** 동적 쿼리 ***-->
+   <select id="searchList" parameterType="PageDTO" resultType="LookBoard">
+      SELECT * FROM look_board 
+              <if test='"C".equals(field)'>  <!-- 파라미터 PageDto의 field 속성 -->
+               where look_content like concat('%', #{findText},'%')
+              </if>
+              <if test='"N".equals(field)'>  
+               where user_nickname like concat('%', #{findText},'%') <!-- 파라미터 PageDto의 findText 속성 -->
+              </if>        
+                ORDER BY look_idx DESC 
+                limit #{startNo},#{pageSize}
+   </select>
+   <!-- 검색결과 갯수를 쿼리 실행 : 검색 결과 페이징을 위해서 필요합니다.  -->
+   <select id="searchCount" parameterType="java.util.Map" resultType="int">
+      SELECT count(*) FROM look_board 
+              <if test='"C".equals(field)'>  <!-- 파라미터 PageDto의 field 속성 -->
+               where look_content like concat('%', #{findText},'%')
+              </if>
+              <if test='"N".equals(field)'>  
+               where user_nickname like concat('%', #{findText},'%') <!-- 파라미터 PageDto의 findText 속성 -->
+              </if>     
+   </select>
+	<update id = "likeupdate" parameterType = "int">
+		update look_board set look_like = (select count(*) from like_count where look_ref = #{look_ref}) where look_idx = #{look_idx};
+	</update>
+	<update id="rcnt" parameterType="int">
+		update look_board set loview_cnt = loview_cnt-1 where look_idx=#{look_idx}
+	</update>
+	
+	
+</mapper>

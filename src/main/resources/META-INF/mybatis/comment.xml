@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gb.olook.mapper.LookcommentMapper">  <!-- 식별자 -->
+	<insert id="cmtinsert" parameterType="com.gb.olook.model.LookCommentDTO">  
+		INSERT INTO look_comment (look_ref,look_name,look_content)
+		VALUES (#{look_ref},#{look_name},#{look_content})
+	</insert>
+	<select id="getCmtList" resultType="com.gb.olook.model.LookCommentDTO" parameterType="int">
+		SELECT * FROM look_comment WHERE look_ref=#{idx}
+	</select>
+	<select id="getCmtCnt" resultType="int" parameterType="int">
+		SELECT count(*) FROM look_comment WHERE look_ref=#{look_ref}
+	</select>
+	<delete id="cmtdelete" parameterType="int">
+		DELETE FROM look_comment where look_cmtidx=#{cmtidx}
+	</delete>
+	
+	<update id = "cmtupdate" parameterType="com.gb.olook.model.LookCommentDTO">
+		UPDATE look_comment set look_content=#{look_content} where look_cmtidx=#{look_cmtidx}
+	</update>
+	
+	<delete id ="boarddelete" parameterType="int">
+		DELETE FROM look_comment where look_ref=#{ref}
+	</delete>
+	
+	<!-- <update id="cmtupdate" parameterType="java.util.HashMap">
+		UPDATE look_comment set content=#{content} where idx=#{idx}
+	</update>
+	
+	
+	
+	freeboard 테이블의 commentCount 수정 : 완성후에는 freebord.xml 로 이동.
+	<update id="updateCmtCnt2" parameterType="java.util.HashMap">
+		UPDATE freeboard set COMMENTCOUNT=#{cmtcnt} where idx=#{idx}
+	</update> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

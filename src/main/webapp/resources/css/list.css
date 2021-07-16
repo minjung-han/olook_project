@@ -1,0 +1,68 @@
+@charset "UTF-8";
+.infinite {
+	counter-reset: section;
+}
+.navbar-brand img{
+	width: 100px;
+	height: auto;
+}
+img {
+	max-width: 100%;
+	height: 200px;
+}
+
+.clock { 
+	width: 300px; 
+	height: 300px; 
+	margin: auto; 
+	padding-top: 75px; 
+	text-align: center; 
+}
+.clock .time_box { 
+	width: 100%; 
+	padding-left: 10px; 
+}
+.clock span { 
+	color: gray; 
+}
+.txt_lg { 
+	font-size: 75px; 
+}
+.txt_sm { 
+	font-size: 20px; 
+}
+.date_box { 
+	font-size: 15px; 
+}
+#day { 
+	display: block; 
+	margin-top: 5px; 
+}
+.mark { 
+	display: inline-block; 
+	vertical-align: top; 
+	height: 100px; 
+	margin-left: 1px; 
+	line-height: 94px; 
+	font-size: 55px; 
+}
+.mark02 { 
+	display: inline-block; 
+	margin-left: -3px; 
+}
+.home-menu{
+	display: flex;
+	justify-content: center;
+}
+.home-menu a{
+	margin-right: 3%;
+}
+.list{
+	margin-top: 3%;
+}
+.card-one{
+	padding: 5%;
+	margin-top: 7%;
+	margin-bottom: 5%;
+	border: 2px solid #aaaaaa;
+}

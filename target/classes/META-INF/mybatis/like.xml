@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gb.olook.mapper.OlookLikeMapper">  <!-- 식별자 -->
+	
+	<select id ="likecnt" parameterType = "int" resultType = "int"> <!-- 글의 좋아요 갯수 찾는 부분 -->
+		SELECT count(*) FROM like_count where look_ref = #{look_ref}
+	</select>
+	
+<!-- 	<select id = "like" parameterType = "com.gb.olook.model.OlookLikeDTO" resultType ="com.gb.olook.model.OlookLikeDTO">
+		SELECT user_email=#{user_email} FROM like_count where look_ref = #{look_ref} 눌렀을 때 이메일이 있는지 없는지 찾는부분
+	</select>  -->
+	<select id = "like" parameterType = "com.gb.olook.model.OlookLikeDTO" resultType ="int">
+		SELECT count(*) FROM like_count where look_ref = #{look_ref} and user_email=#{user_email} <!-- 눌렀을 때 이메일이 있는지 없는지 찾는부분 -->
+	</select> 
+	
+	<delete id ="likedelete" parameterType = "com.gb.olook.model.OlookLikeDTO"> <!-- 좋아요가 있으면 삭제 ==> 카운트 감소시키기 -->
+		DELETE FROM like_count WHERE look_ref = #{look_ref} AND user_email = #{user_email}
+	</delete> 
+	
+	<insert id = "likeinsert" parameterType = "com.gb.olook.model.OlookLikeDTO">
+		INSERT INTO like_count (look_ref,user_email,user_nickname)
+		VALUES (#{look_ref},#{user_email},#{user_nickname})
+	</insert>
+	<delete id ="likedelete2" parameterType = "int">
+      DELETE FROM like_count where look_ref = #{look_ref}
+   </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

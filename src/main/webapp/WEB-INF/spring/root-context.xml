@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:property-placeholder location="classpath:META-INF/mybatis/db.properties"/>
+	<!-- datasource 빈 정의하기 -->
+	<bean id="datasource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+	
+	<!-- 마이바티스 빈 정의  -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource"/>
+		<property name="configLocation" value="classpath:META-INF/mybatis/mybatis-config.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:META-INF/mybatis/olookuser.xml</value>
+				<value>classpath:META-INF/mybatis/lookboard.xml</value>                      
+            	<value>classpath:META-INF/mybatis/comment.xml</value>			
+            	<value>classpath:META-INF/mybatis/like.xml</value>
+            	<value>classpath:META-INF/mybatis/mypage.xml</value>			
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- sql 매퍼로 빈 생성 --> <!-- 다른방법2 : mapper 를 스캔해서 자동으로 빈생성하는 방법도 있습니다. -->
+	<bean id="userMapper"  class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.gb.olook.mapper.OlookUserMapper "/>
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>	
+	
+	<bean id="lookboardMapper"  class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.gb.olook.mapper.LookboardMapper "/>
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	
+	<bean id="cmtmapper"  class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.gb.olook.mapper.LookcommentMapper "/>
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+
+	<bean id="likemapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.gb.olook.mapper.OlookLikeMapper" />
+		<property name="sqlSessionTemplate" ref="sqlSession" />
+	</bean>
+	
+	<bean id="mypagemapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+      <property name="mapperInterface" value="com.gb.olook.mapper.MypageMapper" />
+      <property name="sqlSessionTemplate" ref="sqlSession" />
+   </bean>
+
+	<!-- 메일 보내기 (SEND) -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="asgi777@gmail.com" />
+      <property name="password" value="ghkf2wn015"/>
+    
+
+      <!-- email 요청시는 SMTP -->
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+			<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+         </props>
+      </property>
+   </bean>
+	
+</beans>
