@@ -45,6 +45,15 @@ public class LookboardDTO {
 				+ ", look_like=" + look_like + ", look_cmt=" + look_cmt + ", look_date=" + look_date + ", uploadFile="
 				+ uploadFile + "]";
 	}
+	
+	public String getUser_nickname() {
+		return user_nickname;
+	}
+
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
+	}
+
 	public String getUser_email() {
 		return user_email;
 	}
