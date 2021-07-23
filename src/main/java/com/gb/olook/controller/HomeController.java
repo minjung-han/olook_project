@@ -20,5 +20,5 @@ public class HomeController {
    public String home() {
       return "redirect:/lookboard/list?page=1";
    }
-   
+   //브랜치 테스트~~
 }
