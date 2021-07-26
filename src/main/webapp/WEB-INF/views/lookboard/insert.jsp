@@ -38,6 +38,10 @@ content = look_content.replace("\r\n","<br>");
 	height: 300px;
 	width: 100%;
 }
+.image_container{
+	height : auto; 
+	width : auto;
+}
 </style>
 </head>
 <body>
@@ -58,7 +62,6 @@ content = look_content.replace("\r\n","<br>");
 	</ul>
 </div>
 <form name="frm1" method="post" action="insert" enctype="multipart/form-data">
-<input type="hidden" name="ip" value="<%= request.getRemoteAddr()%>">  <!-- 클라이언트 ip -->
 <div class="WritingHeader">
 	<h2 class="title"><b>Daily Look</b></h2>
 	<div class="save_area">
@@ -77,8 +80,21 @@ content = look_content.replace("\r\n","<br>");
                 </h3>
 	 		</div>
 	 		<div class="col-sm-4">
-	 			<input type="file" name="uploadFile">
+	 			<input type="file" id = "image" accept="image/*" onchange="setThumbnail(event);" name="uploadFile"/>
+	 			<script> function setThumbnail(event) { 
+	 				var reader = new FileReader();
+	 				
+	 				
+	 				reader.onload = function(event) { 
+	 					var img = document.createElement("img"); 
+	 					img.setAttribute("src", event.target.result); 
+	 					document.querySelector("div#image_container").appendChild(img); 
+	 					}; 
+	 					reader.readAsDataURL(event.target.files[0]); 
+	 					} 
+	 			</script>
 	 		</div>
+	 		<div id = "image_container" class ="image_container"></div>
  		</div>
 		<div class="insert_content">
 			<div class="row_group">
