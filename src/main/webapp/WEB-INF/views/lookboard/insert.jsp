@@ -39,8 +39,8 @@ content = look_content.replace("\r\n","<br>");
 	width: 100%;
 }
 .image_container{
-	height : 512px; 
-	width : 512px;
+	height : auto; 
+	width : auto;
 }
 </style>
 </head>
