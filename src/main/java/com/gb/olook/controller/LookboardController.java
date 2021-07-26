@@ -70,7 +70,7 @@ public class LookboardController {
 		list = service.getPagelist(new PageDTO(currentPage, pageSize, totalCount, field, findText));
 		modelMap.put("field", field);
 		modelMap.put("findText", findText);
-
+		
 		if (findText != null) { // 검색하는 경우
 			totalCount = service.searchCount(modelMap); // 서비스 메소드 타입 변경예정
 			pageDto = new PageDTO(currentPage, pageSize, totalCount, field, findText);

@@ -204,6 +204,7 @@ var clockStart = setInterval(function() {
                         <img style = "width : auto; height : auto;" class="card-img-top" src="${pageContext.request.contextPath}/image/t-${vo.look_filename}"/></a>
                            <div style="margin-top: 3%; margin-left: 2%;">${vo.user_nickname}</div>
                         <div class="card-body bottom">
+                           <%-- <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart" aria-hidden="true"></i>${vo.look_like}</a> --%> <!-- 색칠하트  -->                       
                            <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart-o" aria-hidden="true"></i> ${vo.look_like}</a>
                            <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-commenting-o" aria-hidden="true"></i>  ${vo.look_cmt}</a>
                            <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-eye" aria-hidden="true"></i> ${vo.loview_cnt}</a>
