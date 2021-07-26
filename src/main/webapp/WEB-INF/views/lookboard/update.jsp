@@ -122,7 +122,7 @@ content = look_content.replace("\r\n","<br>");
 								<label for="look_weight">몸무게</label>
 							</h3>
 							<span class="ps_box">
-								<input type ="text" value="${bean.look_weight }" name = "look_weight">
+								<input type ="text" value="${bean.look_weight}" name = "look_weight">
 							</span>
 						</div>
 					</div>
@@ -131,8 +131,7 @@ content = look_content.replace("\r\n","<br>");
 			<div class="col update_row update-intro">
 				<h3 class="update_title intro-title">
 					<label>자기소개</label>
-					<textarea rows="20" cols="80" class="ps_box intro" name="look_content" placeholder="${bean.look_content }" name ="look_content">
-					</textarea>
+					<textarea rows="20" cols="80" class="ps_box intro" name="look_content" placeholder="${bean.look_content}" name ="look_content"></textarea>
 				</h3>
 			</div>
 		</div>
