@@ -37,7 +37,7 @@ function YesScroll() {
     const scrollPosition = pageYOffset; // 스크롤 위치
       
       //(fullHeight-screenHeight) <= scrollPosition && !oneTime
-      if ((fullHeight-screenHeight) <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
+      if ((fullHeight-screenHeight) <= scrollPosition && !oneTime) { //만약 전체높이-화면높이가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
          removeEventListener('scroll',OnScroll,{passive:true});
          oneTime = true; // oneTime 변수를 true로 변경해주고,
         console.log("count2 : " + count2);
