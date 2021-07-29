@@ -1,3 +1,4 @@
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -111,7 +112,6 @@ var clockStart = setInterval(function() {
       return (num < 10 ? '0'+num : ''+num);
    }
 }, 1000)
-
 </script>
 <style>
 #background{

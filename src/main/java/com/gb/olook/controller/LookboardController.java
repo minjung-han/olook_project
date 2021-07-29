@@ -97,8 +97,10 @@ public class LookboardController {
 		} else {
 			if (like.like(dto) == 0) {
 				like.likeinsert(dto);
+				service.look_likeinsert(dto);
 			} else {
 				like.likedelete(dto);
+				service.look_likedelete(dto);
 			}
 			service.likeupdate(dto.getLook_ref());
 			return "redirect:/lookboard/list?page=1";
