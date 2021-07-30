@@ -24,6 +24,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gb.olook.model.LookCommentDTO;
@@ -85,9 +86,20 @@ public class LookboardController {
 		modelMap.put("page", pageDto); // view에게 전달할 모델객체 설정
 		modelMap.put("list", list);
 		model.addAllAttributes(modelMap); // 위에 4개의 put 설정은 map객체를 애트리뷰트에 저장한다.
-
+		System.out.println("list실행");
+		System.out.println("list : " + list);
 	}
-
+	
+	
+	@RequestMapping(value = "likechangeAction")
+	public void likechangeAction(OlookLikeDTO dto) {
+		System.out.println("=============================들어오긴함!");
+		if(like.likeselect(dto) == 1) {
+			service.look_likeinsert(dto);
+		}else {
+			service.look_likedelete(dto);
+		}
+	}
 		//좋아요 (리스트에서)
 	@RequestMapping(value = "likeAction")
 	public String likeAction(OlookLikeDTO dto, Model model) {
@@ -97,10 +109,10 @@ public class LookboardController {
 		} else {
 			if (like.like(dto) == 0) {
 				like.likeinsert(dto);
-				service.look_likeinsert(dto);
+				//service.look_likeinsert(dto);
 			} else {
 				like.likedelete(dto);
-				service.look_likedelete(dto);
+				//service.look_likedelete(dto);
 			}
 			service.likeupdate(dto.getLook_ref());
 			return "redirect:/lookboard/list?page=1";
