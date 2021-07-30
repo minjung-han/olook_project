@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gb.olook.model.LookCommentDTO;
@@ -54,7 +54,8 @@ public class LookboardController {
 	OlookLikeService like;
 	
 	@RequestMapping(value = { "/", "/list" })
-	private void pageList(String page, String field, String findText, Model model) {
+	private void pageList(HttpServletRequest request, String page, String field, String findText, Model model) {
+		HttpSession session = request.getSession();
 		int currentPage; // 현재 페이지
 		List<LookboardDTO> list;
 		int totalCount;
@@ -86,20 +87,25 @@ public class LookboardController {
 		modelMap.put("page", pageDto); // view에게 전달할 모델객체 설정
 		modelMap.put("list", list);
 		model.addAllAttributes(modelMap); // 위에 4개의 put 설정은 map객체를 애트리뷰트에 저장한다.
-		System.out.println("list실행");
-		System.out.println("list : " + list);
-	}
-	
-	
-	@RequestMapping(value = "likechangeAction")
-	public void likechangeAction(OlookLikeDTO dto) {
-		System.out.println("=============================들어오긴함!");
-		if(like.likeselect(dto) == 1) {
-			service.look_likeinsert(dto);
-		}else {
-			service.look_likedelete(dto);
+		OlookLikeDTO dto = new OlookLikeDTO();
+		for (int i = 0; i < list.size(); i++) {
+			
+			System.out.println("loginUser = " + session.getAttribute("email"));
+			dto.setLook_ref(list.get(i).getLook_idx());
+			
+			dto.setUser_email((String)(session.getAttribute("email")));
+			if(like.likeselect(dto) == 1) {
+				service.look_likeinsert(dto);
+			}else {
+				service.look_likedelete(dto);
+			}
+			
+			
 		}
+		
 	}
+	
+	
 		//좋아요 (리스트에서)
 	@RequestMapping(value = "likeAction")
 	public String likeAction(OlookLikeDTO dto, Model model) {
@@ -109,10 +115,10 @@ public class LookboardController {
 		} else {
 			if (like.like(dto) == 0) {
 				like.likeinsert(dto);
-				//service.look_likeinsert(dto);
+				service.look_likeinsert(dto);
 			} else {
 				like.likedelete(dto);
-				//service.look_likedelete(dto);
+				service.look_likedelete(dto);
 			}
 			service.likeupdate(dto.getLook_ref());
 			return "redirect:/lookboard/list?page=1";

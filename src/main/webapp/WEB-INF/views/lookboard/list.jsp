@@ -112,10 +112,10 @@ var clockStart = setInterval(function() {
       return (num < 10 ? '0'+num : ''+num);
    }
 }, 1000)
-/* 
-function like(idx,email){
-	location.href = 'likechangeAction?user_email='+email+'$look_ref='+idx;
-} */
+ 
+ /* function like(idx,email){
+	location.href = 'likechangeAction?user_email='+email+'&look_ref='+idx;
+}  */
 </script>
 <style>
 #background{
@@ -213,15 +213,15 @@ function like(idx,email){
                         <img style = "width : auto; height : auto;" class="card-img-top" src="${pageContext.request.contextPath}/image/t-${vo.look_filename}"/></a>
                            <div style="margin-top: 3%; margin-left: 2%;">${vo.user_nickname}</div>
                         <div class="card-body bottom">
-                        <c:if test = "${vo.look_like_email == 1}">
-                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart" aria-hidden="true"></i>${vo.look_like}</a> <!-- 색칠하트  -->                                               
+                        <c:if test = "${vo.look_like_email == '1'}">
+                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart" aria-hidden="true"></i>  ${vo.look_like}</a> <!-- 색칠하트  -->                                               
                         </c:if>
                         
-                        <c:if test = "${vo.look_like_email == 0}">
-                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart-o" aria-hidden="true"></i> ${vo.look_like}</a>
+                        <c:if test = "${vo.look_like_email == '0'}">
+                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart-o" aria-hidden="true"></i>  ${vo.look_like}</a>
                         </c:if>
                            <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-commenting-o" aria-hidden="true"></i>  ${vo.look_cmt}</a>
-                           <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-eye" aria-hidden="true"></i> ${vo.loview_cnt}</a>
+                           <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-eye" aria-hidden="true"></i>  ${vo.loview_cnt}</a>
                            <p class="card-text">${vo.look_content}</p>
                            <div class="small text-muted"></div>
                         </div>

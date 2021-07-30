@@ -30,6 +30,8 @@
    <select id = "likeselect" parameterType = "com.gb.olook.model.OlookLikeDTO" resultType = "int">
    	select count(*) from like_count where look_ref = #{look_ref} and user_email = #{user_email}
    </select>
+   
+   
 </mapper>
 
 
