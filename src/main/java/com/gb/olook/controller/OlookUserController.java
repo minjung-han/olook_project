@@ -184,7 +184,7 @@ public class OlookUserController {
 	@RequestMapping(value="/logout")
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
-		ModelAndView mav = new ModelAndView("redirect:/lookboard/list2");
+		ModelAndView mav = new ModelAndView("redirect:/");
 		return mav;
 	}
 	

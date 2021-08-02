@@ -95,7 +95,7 @@ public class LookboardController {
 			pageDto = new PageDTO(currentPage, pageSize, totalCount, field, findText);
 			list = service.getPagelist(new PageDTO(currentPage, pageSize, totalCount, field, findText));// 주석처리 예정
 		}
-
+		
 		modelMap.put("page", pageDto); // view에게 전달할 모델객체 설정
 		modelMap.put("list", list);
 		model.addAllAttributes(modelMap); // 위에 4개의 put 설정은 map객체를 애트리뷰트에 저장한다.
