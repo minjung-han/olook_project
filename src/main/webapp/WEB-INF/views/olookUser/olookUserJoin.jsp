@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -239,8 +240,16 @@ label{
 					 		<label for="user_email">아이디</label>
 					 	</h3>
 					 	<span class="ps_box id_box">
-							<input type="email" name="user_email" class="int" id="user_email" value="${userEmail }"
-								required="required" readonly="readonly">
+					 		<c:choose>
+					 			<c:when test="${kEmail != null}">
+									<input type="email" name="user_email" class="int" id="user_email" value="${kEmail }"
+										required="required" readonly="readonly">
+								</c:when>
+								<c:otherwise>
+									<input type="email" name="user_email" class="int" id="user_email" value="${userEmail }"
+										required="required" readonly="readonly">
+								</c:otherwise>
+							</c:choose>
 					 	</span>
 					</div>
 				</div>

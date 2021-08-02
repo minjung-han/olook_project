@@ -174,8 +174,10 @@ public class OlookUserController {
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 		String kNickName = properties.path("nickname").asText();
+		String kEmail = kakao_account.path("email").asText();
 		session.setAttribute("kNickName", kNickName);
-		mav.setViewName("olookUser/olookEmailCheck");
+		session.setAttribute("kEmail", kEmail);
+		mav.setViewName("olookUser/olookUserJoin");
 		return mav;
 	}
 
