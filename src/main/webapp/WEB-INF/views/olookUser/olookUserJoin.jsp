@@ -21,6 +21,7 @@ $(function(){
 	nickNameCheck();
 	phoneCheck();
 	pwdCheck();
+	idCheck();
 });
 
 
@@ -116,6 +117,27 @@ function pwdCheck() {
 	});
 }
 
+function idCheck() {
+	$("#user_email").blur(function() {
+		var user_email =$('#user_email').val();
+		$.ajax({
+			url: "idCheck",
+			type: 'POST',
+			dataType: 'json',
+			data: JSON.stringify({user_email : user_email}),
+			contentType: 'application/json',
+			mimeType: 'application/json',
+			success: function(response) {
+				if(response.flag==false){
+					$("#emailCheckWord").text("사용중인 아이디입니다");
+					$("#emailCheckWord").css("color", "red");
+					$("#joinSubmit").attr("disabled", true);
+				}
+			}
+		});
+	});
+}
+
 </script>
 <style type="text/css">
 .navbar-brand img{
@@ -179,6 +201,7 @@ label{
 .id_box input{
 	width: 250px;
 }
+
 .pwd{
 	margin-top: 34px;
 }
@@ -239,11 +262,12 @@ label{
 					 	<h3 class="join_title">
 					 		<label for="user_email">아이디</label>
 					 	</h3>
-					 	<span class="ps_box id_box">
+					 	<span class="ps_box.id_box">
 					 		<c:choose>
 					 			<c:when test="${kEmail != null}">
 									<input type="email" name="user_email" class="int" id="user_email" value="${kEmail }"
 										required="required" readonly="readonly">
+									<span id="emailCheckWord"></span>
 								</c:when>
 								<c:otherwise>
 									<input type="email" name="user_email" class="int" id="user_email" value="${userEmail }"
