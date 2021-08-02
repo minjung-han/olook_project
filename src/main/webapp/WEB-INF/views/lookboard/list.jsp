@@ -87,6 +87,9 @@ YesScroll();
 function likecnt(email,idx,nickname){
    location.href = 'likeAction?user_email='+email+'&look_ref='+idx+'&user_nickname='+nickname;
 }
+
+
+
 //실시간 시계
 var clockStart = setInterval(function() {
    var today = new Date();
@@ -113,9 +116,6 @@ var clockStart = setInterval(function() {
    }
 }, 1000)
  
- /* function like(idx,email){
-	location.href = 'likechangeAction?user_email='+email+'&look_ref='+idx;
-}  */
 </script>
 <style>
 #background{

@@ -72,7 +72,19 @@ public class LookboardController {
 		list = service.getPagelist(new PageDTO(currentPage, pageSize, totalCount, field, findText));
 		modelMap.put("field", field);
 		modelMap.put("findText", findText);
-		
+		OlookLikeDTO dto = new OlookLikeDTO();
+		for (int i = 0; i < list.size(); i++) {
+			dto.setLook_ref(list.get(i).getLook_idx());
+			dto.setUser_email((String)(session.getAttribute("email")));
+			if(dto.getUser_email() == null) {
+				service.look_likedelete(dto);
+			}
+			if(like.likeselect(dto) == 1) {
+				service.look_likeinsert(dto);
+			}else {
+				service.look_likedelete(dto);
+			}
+		}
 		if (findText != null) { // 검색하는 경우
 			totalCount = service.searchCount(modelMap); // 서비스 메소드 타입 변경예정
 			pageDto = new PageDTO(currentPage, pageSize, totalCount, field, findText);
@@ -87,24 +99,7 @@ public class LookboardController {
 		modelMap.put("page", pageDto); // view에게 전달할 모델객체 설정
 		modelMap.put("list", list);
 		model.addAllAttributes(modelMap); // 위에 4개의 put 설정은 map객체를 애트리뷰트에 저장한다.
-		OlookLikeDTO dto = new OlookLikeDTO();
-		for (int i = 0; i < list.size(); i++) {
-			
-			System.out.println("loginUser = " + session.getAttribute("email"));
-			dto.setLook_ref(list.get(i).getLook_idx());
-			
-			dto.setUser_email((String)(session.getAttribute("email")));
-			if(like.likeselect(dto) == 1) {
-				service.look_likeinsert(dto);
-			}else {
-				service.look_likedelete(dto);
-			}
-			
-			
-		}
-		
 	}
-	
 	
 		//좋아요 (리스트에서)
 	@RequestMapping(value = "likeAction")
