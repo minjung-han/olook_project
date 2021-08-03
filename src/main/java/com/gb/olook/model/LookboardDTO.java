@@ -37,6 +37,8 @@ public class LookboardDTO {
 	private String user_nickname;
 	private MultipartFile uploadFile;
 	private String look_like_email;
+	
+	
 	@Override
 	public String toString() {
 		return "LookboardDTO [user_email=" + user_email + ", look_idx=" + look_idx + ", look_intro=" + look_intro

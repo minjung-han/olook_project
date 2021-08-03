@@ -21,7 +21,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class KakaoController {
 	private final static String K_CLIENT_ID = "3e85cd06083bcbdd193f2c68d3db6c15";
 	//이런식으로 REDIRECT_URI를 써넣는다.
-	private final static String K_REDIRECT_URI = "http://localhost:8081/olook/olookUser/kakaoLogin";
+	private final static String K_REDIRECT_URI = "http://localhost:8082/olook/olookUser/kakaoLogin";
 	
 	public static String getAuthorizationUrl(HttpSession session) {
 		String kakaoUrl = "https://kauth.kakao.com/oauth/authorize?" + "client_id=" + K_CLIENT_ID + "&redirect_uri=" + K_REDIRECT_URI + "&response_type=code";
@@ -34,7 +34,7 @@ public class KakaoController {
 		
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		postParams.add(new BasicNameValuePair("client_id", "3e85cd06083bcbdd193f2c68d3db6c15")); // REST API KEY
-		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8081/olook/olookUser/kakaoLogin")); // 리다이렉트 URI
+		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8082/olook/olookUser/kakaoLogin")); // 리다이렉트 URI
 		postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
 		
 		final HttpClient client = HttpClientBuilder.create().build();
