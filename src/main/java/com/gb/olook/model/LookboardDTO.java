@@ -51,23 +51,15 @@ public class LookboardDTO {
 	public String getLook_like_email() {
 		return look_like_email;
 	}
-
-
-
 	public void setLook_like_email(String look_like_email) {
 		this.look_like_email = look_like_email;
 	}
-
-
-
 	public String getUser_nickname() {
 		return user_nickname;
 	}
-
 	public void setUser_nickname(String user_nickname) {
 		this.user_nickname = user_nickname;
 	}
-
 	public String getUser_email() {
 		return user_email;
 	}
