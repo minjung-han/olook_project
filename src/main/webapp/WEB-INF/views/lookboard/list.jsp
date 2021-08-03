@@ -1,3 +1,4 @@
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -37,7 +38,7 @@ function YesScroll() {
     const scrollPosition = pageYOffset; // 스크롤 위치
       
       //(fullHeight-screenHeight) <= scrollPosition && !oneTime
-      if ((fullHeight-screenHeight) <= scrollPosition && !oneTime) { // 만약 전체높이-화면높이가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
+      if ((fullHeight-screenHeight) <= scrollPosition && !oneTime) { //만약 전체높이-화면높이가 스크롤포지션보다 작아진다면, 그리고 oneTime 변수가 거짓이라면
          removeEventListener('scroll',OnScroll,{passive:true});
          oneTime = true; // oneTime 변수를 true로 변경해주고,
         console.log("count2 : " + count2);
@@ -86,6 +87,9 @@ YesScroll();
 function likecnt(email,idx,nickname){
    location.href = 'likeAction?user_email='+email+'&look_ref='+idx+'&user_nickname='+nickname;
 }
+
+
+
 //실시간 시계
 var clockStart = setInterval(function() {
    var today = new Date();
@@ -111,7 +115,7 @@ var clockStart = setInterval(function() {
       return (num < 10 ? '0'+num : ''+num);
    }
 }, 1000)
-
+ 
 </script>
 <style>
 #background{
@@ -197,6 +201,11 @@ var clockStart = setInterval(function() {
             </div>
             </c:if>
             <div class="row">
+            <%-- <c:forEach var = "vo" items="${list}">
+                        <script>
+                        	like(${vo.look_idx},${loginUser.user_email});
+                        </script>            
+            </c:forEach> --%>
                    <c:forEach var="vo" items="${list}">
                   <div class="list">
                          <div class="card-one">
@@ -204,9 +213,15 @@ var clockStart = setInterval(function() {
                         <img style = "width : auto; height : auto;" class="card-img-top" src="${pageContext.request.contextPath}/image/t-${vo.look_filename}"/></a>
                            <div style="margin-top: 3%; margin-left: 2%;">${vo.user_nickname}</div>
                         <div class="card-body bottom">
-                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart-o" aria-hidden="true"></i> ${vo.look_like}</a>
+                        <c:if test = "${vo.look_like_email == '1'}">
+                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart" aria-hidden="true"></i>  ${vo.look_like}</a> <!-- 색칠하트  -->                                               
+                        </c:if>
+                        
+                        <c:if test = "${vo.look_like_email == '0'}">
+                           <a class="btn btn-primary btn-sm" href="javascript:likecnt('${loginUser.user_email}','${vo.look_idx}','${loginUser.user_nickname}')"><i class="fa fa-heart-o" aria-hidden="true"></i>  ${vo.look_like}</a>
+                        </c:if>
                            <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-commenting-o" aria-hidden="true"></i>  ${vo.look_cmt}</a>
-                           <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-eye" aria-hidden="true"></i> ${vo.loview_cnt}</a>
+                           <a class="btn btn-primary btn-sm" href="#!"><i class="fa fa-eye" aria-hidden="true"></i>  ${vo.loview_cnt}</a>
                            <p class="card-text">${vo.look_content}</p>
                            <div class="small text-muted"></div>
                         </div>

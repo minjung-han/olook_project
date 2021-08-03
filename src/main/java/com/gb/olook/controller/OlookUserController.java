@@ -118,8 +118,10 @@ public class OlookUserController {
 			String pwd = (String) map.get("user_password");
 			String userPwd = loginUser.getUser_password();
 			if(pwdEncoder.matches(pwd, userPwd)) {
+				String email = loginUser.getUser_email();
 				model.addAttribute("message", "로그인 성공");
 				model.addAttribute("flag", "true");
+				session.setAttribute("email", email);
 				session.setAttribute("loginUser", loginUser);
 			}
 		}
