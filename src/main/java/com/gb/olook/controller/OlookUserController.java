@@ -118,8 +118,10 @@ public class OlookUserController {
 			String pwd = (String) map.get("user_password");
 			String userPwd = loginUser.getUser_password();
 			if(pwdEncoder.matches(pwd, userPwd)) {
+				String email = loginUser.getUser_email();
 				model.addAttribute("message", "로그인 성공");
 				model.addAttribute("flag", "true");
+				session.setAttribute("email", email);
 				session.setAttribute("loginUser", loginUser);
 			}
 		}
@@ -174,8 +176,10 @@ public class OlookUserController {
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 		String kNickName = properties.path("nickname").asText();
+		String kEmail = kakao_account.path("email").asText();
 		session.setAttribute("kNickName", kNickName);
-		mav.setViewName("olookUser/olookEmailCheck");
+		session.setAttribute("kEmail", kEmail);
+		mav.setViewName("olookUser/olookUserJoin");
 		return mav;
 	}
 

@@ -10,7 +10,7 @@ if('${message2}' != "no"){
 	if ('${flag}' == 'false') {
 		history.back();
 	}else {
-		location.href='${pageContext.request.contextPath}'
+		location.href='${pageContext.request.contextPath}';
 	} 
 }
 </script>

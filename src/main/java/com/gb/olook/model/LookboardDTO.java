@@ -36,6 +36,9 @@ public class LookboardDTO {
 	private Date look_date;
 	private String user_nickname;
 	private MultipartFile uploadFile;
+	private String look_like_email;
+	
+	
 	@Override
 	public String toString() {
 		return "LookboardDTO [user_email=" + user_email + ", look_idx=" + look_idx + ", look_intro=" + look_intro
@@ -46,14 +49,19 @@ public class LookboardDTO {
 				+ uploadFile + "]";
 	}
 	
+	
+	public String getLook_like_email() {
+		return look_like_email;
+	}
+	public void setLook_like_email(String look_like_email) {
+		this.look_like_email = look_like_email;
+	}
 	public String getUser_nickname() {
 		return user_nickname;
 	}
-
 	public void setUser_nickname(String user_nickname) {
 		this.user_nickname = user_nickname;
 	}
-
 	public String getUser_email() {
 		return user_email;
 	}
