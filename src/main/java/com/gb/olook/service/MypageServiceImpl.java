@@ -1,6 +1,7 @@
 package com.gb.olook.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -8,10 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import com.gb.olook.mapper.MypageMapper;
 import com.gb.olook.model.LookboardDTO;
 import com.gb.olook.model.OlookUserDTO;
+import com.gb.olook.model.PageDTO;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -30,7 +33,6 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public void updateUser(OlookUserDTO dto) {
 		udao.updateUser(dto);
-		return;
 	}
 
 	@Override
@@ -39,10 +41,10 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<LookboardDTO> list() {
-		return udao.list();
+	public List<LookboardDTO> getMyBoardList(String user_email) {
+		return udao.getMyBoardList(user_email);
 	}
-	
+
 	@Override
 	public void logout(HttpSession session) {
 		session.invalidate();
@@ -53,7 +55,20 @@ public class MypageServiceImpl implements MypageService{
 		udao.deleteUser(dto);
 	}
 
+	@Override
+	public int searchCount(ModelMap modelMap) {
+		return udao.searchCount(modelMap);
+	}
 
+	@Override
+	public List<LookboardDTO> searchList(PageDTO dto) {
+		return udao.searchList(dto);
+	}
+
+	@Override
+	public void updateProfile(OlookUserDTO dto) {
+		udao.updateProfile(dto);
+	}
 
 
 }

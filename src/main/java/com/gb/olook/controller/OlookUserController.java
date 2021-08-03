@@ -1,21 +1,35 @@
 package com.gb.olook.controller;
 
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.codehaus.jackson.JsonNode;
+import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +39,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gb.olook.model.LookboardDTO;
+import com.gb.olook.model.MypagePageDTO;
 import com.gb.olook.model.OlookUserDTO;
+import com.gb.olook.model.PageDTO;
 import com.gb.olook.service.MailSendService;
 import com.gb.olook.service.MypageService;
 import com.gb.olook.service.OlookUserService;
+
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping(value = "/olookUser")
@@ -43,8 +62,8 @@ public class OlookUserController {
 	@Autowired
 	OlookUserService userService;
 	
-	 @Autowired
-	   MypageService service;
+	@Autowired
+	MypageService service;
 	
 	@RequestMapping(value = "/olookUserPage")
 	public void olookUserView(Model model, HttpSession session) {
@@ -118,10 +137,8 @@ public class OlookUserController {
 			String pwd = (String) map.get("user_password");
 			String userPwd = loginUser.getUser_password();
 			if(pwdEncoder.matches(pwd, userPwd)) {
-				String email = loginUser.getUser_email();
 				model.addAttribute("message", "로그인 성공");
 				model.addAttribute("flag", "true");
-				session.setAttribute("email", email);
 				session.setAttribute("loginUser", loginUser);
 			}
 		}
@@ -176,38 +193,92 @@ public class OlookUserController {
 		JsonNode properties = userInfo.path("properties");
 		JsonNode kakao_account = userInfo.path("kakao_account");
 		String kNickName = properties.path("nickname").asText();
-		String kEmail = kakao_account.path("email").asText();
 		session.setAttribute("kNickName", kNickName);
-		session.setAttribute("kEmail", kEmail);
-		mav.setViewName("olookUser/olookUserJoin");
+		mav.setViewName("olookUser/olookEmailCheck");
 		return mav;
 	}
 
-	@RequestMapping(value="/logout")
-	public ModelAndView logout(HttpSession session) {
-		session.invalidate();
-		ModelAndView mav = new ModelAndView("redirect:/");
-		return mav;
+	@RequestMapping(value="/myPage")
+	public void mypageView(String user_email, Model model) {
+		OlookUserDTO user = service.getUser(user_email);
+	    model.addAttribute("user",user); 
 	}
 	
-	@RequestMapping(value="/myPage")
-	   public void mypageView(HttpServletRequest request, HttpSession session) {
-	      session = request.getSession();
-	      session.getAttribute("loginUser");
-	   }
-	   
-	   @RequestMapping(value = "/updateUser",method = RequestMethod.GET)
-	   public void updateView(HttpSession session,Model model) {
-	      model.addAttribute("loginUser",service.getUser((String) session.getAttribute("user_email")));
-	   }
-	   
-	   @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-	   public String updateUser(OlookUserDTO user) {
-	      System.out.println("회원 정보수정 POST");
-	      service.updateUser(user);
-	      
-	      return "olookUser/myPage";
-	   }
-	   
+	@RequestMapping(value = "/list",method = RequestMethod.GET)
+	public void getList(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("user_email");
+		List<LookboardDTO> list = null;
+		list = service.getMyBoardList(user_email);
+		model.addAttribute("list",list);
+	}
 	
+	@RequestMapping(value = "/updateUser",method = RequestMethod.GET)
+	public void updateUserView(HttpServletRequest request) {
+		 HttpSession session = request.getSession();
+		 session.getAttribute("loginUser");
+	}
+	  
+	@RequestMapping(value = "/updateUser",method = RequestMethod.POST)
+	public String updateUser(@ModelAttribute OlookUserDTO user) throws IllegalStateException, IOException {
+		System.out.println("update");
+		 String fileName = null;
+		 MultipartFile uploadFile = user.getUploadFile();
+		 System.out.println(uploadFile);
+		 if(!uploadFile.isEmpty()) {
+			 System.out.println("파일업로드");
+			 String orginalFileName = uploadFile.getOriginalFilename();
+			 user.setFilename(orginalFileName);
+			 String ext = FilenameUtils.getExtension(orginalFileName);
+			 UUID uuid = UUID.randomUUID();
+			 fileName = uuid + "_" + ext;
+			 uploadFile.transferTo(new File("C:\\image\\"+fileName));
+			 
+			 String oPath = "C:\\image\\"+fileName;
+			 File oFile = new File(oPath);
+			 
+	         int index = oPath.lastIndexOf("_");
+	         String ext2 = oPath.substring(index + 1); // 파일 확장자
+
+	         String tPath = oFile.getParent() + File.separator + "p-" + oFile.getName(); // 썸네일저장 경로
+	         File tFile = new File(tPath);
+	         
+	         double ratio = 2; // 이미지 축소 비율
+	         int tWidth;
+	         int tHeight;
+	         
+	         BufferedImage oImage = ImageIO.read(oFile);
+	         if(((int) (oImage.getWidth() / ratio)) < 440) {
+	               tWidth = 440;
+	            }else {
+	               tWidth = (int) (oImage.getWidth() / ratio);
+	            }
+	            if(((int) (oImage.getHeight() / ratio)) < 440) {
+	               tHeight = 440;
+	            }else {
+	               tHeight = (int) (oImage.getHeight() / ratio);
+	            }
+	          
+	         BufferedImage tImage = new BufferedImage(tWidth, tHeight, BufferedImage.TYPE_3BYTE_BGR); // 썸네일이미지
+	         Graphics2D graphic = tImage.createGraphics();
+	         Image image = oImage.getScaledInstance(tWidth, tHeight, Image.SCALE_SMOOTH);
+	         graphic.drawImage(image, 0, 0, tWidth, tHeight, null);
+	         graphic.dispose(); // 리소스를 모두 해제
+	         ImageIO.write(tImage, ext2, tFile);
+		 }
+		 System.out.println(user);
+		 user.setFilename(fileName);
+		 service.updateUser(user);
+		 
+		 return "redirect:myPage";
+	 }
+	   
+
+		@RequestMapping(value="/logout")
+		public ModelAndView logout(HttpSession session) {
+			session.invalidate();
+			ModelAndView mav = new ModelAndView("redirect:/");
+			return mav;
+		}
+		
 }

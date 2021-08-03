@@ -10,7 +10,8 @@
 	</select>
 
 	<update id="updateUser" parameterType="UserDto">
-		update olook_user set user_intro=#{user_intro},
+		update olook_user 
+		set user_intro=#{user_intro},
 		user_phone=#{user_phone}
 		where user_email=#{user_email} 	
 	</update>
@@ -19,14 +20,24 @@
 		select count(*) from look_board where user_email=#{user_email}
 	</select>
 
-	<select id="list" resultType="LookBoard">
+	<select id="getMyBoardList" resultType="LookBoard">
 		select * from look_board where user_email=#{user_email} 
 		order by look_idx desc
+	</select>
+	
+	<select id="getPageList">
+		select * from look_board order by look_idx desc
+		LIMIT #{startNo},#{pageSize}	
 	</select>
 	
 	<delete id="deleteUser" parameterType="java.util.Map">
 		delete * from olook_user
 		where user_email=#{user_email}
 	</delete>
+	
+	<!-- <select id="likeCnt">
+	
+	</select> -->
+	
 </mapper>
 
