@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import com.gb.olook.mapper.LookboardMapper;
 import com.gb.olook.model.FreeboardDTO;
 import com.gb.olook.model.LookboardDTO;
-import com.gb.olook.model.OlookLikeDTO;
 import com.gb.olook.model.PageDTO;
 
 
@@ -24,9 +23,6 @@ public class LookBoardServiceImpl implements LookboardService{
 	
 	@Autowired
 	LookboardMapper dao;
-	
-	
-
 	
 	@Override
 	public List<LookboardDTO> getAll() {
@@ -103,18 +99,6 @@ public class LookBoardServiceImpl implements LookboardService{
 	@Override
 	public int rcnt(int idx) {
 		return dao.rcnt(idx);
-	}
-
-	@Override
-	public int look_likedelete(OlookLikeDTO dto) {
-		// TODO Auto-generated method stub
-		return dao.look_likedelete(dto);
-	}
-
-	@Override
-	public int look_likeinsert(OlookLikeDTO dto) {
-		// TODO Auto-generated method stub
-		return dao.look_likeinsert(dto);
 	}
 
 }

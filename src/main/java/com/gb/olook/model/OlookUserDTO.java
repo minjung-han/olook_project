@@ -1,11 +1,13 @@
 package com.gb.olook.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -15,8 +17,11 @@ public class OlookUserDTO {
 	private String user_phone;
 	private String user_email;
 	private String user_password;
-	private String filename;
-	private String intro;
+	private String user_filename;
+	private String user_intro;
+	private MultipartFile uploadFile;
+	
+	
 	public String getUser_name() {
 		return user_name;
 	}
@@ -47,18 +52,23 @@ public class OlookUserDTO {
 	public void setUser_password(String user_password) {
 		this.user_password = user_password;
 	}
-	public String getFilename() {
-		return filename;
+	public String getUser_intro() {
+		return user_intro;
 	}
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setUser_intro(String user_intro) {
+		this.user_intro = user_intro;
 	}
-	public String getIntro() {
-		return intro;
+	public MultipartFile getUploadFile() {
+		return uploadFile;
 	}
-	public void setIntro(String intro) {
-		this.intro = intro;
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
-	
+	public String getUser_filename() {
+		return user_filename;
+	}
+	public void setUser_filename(String user_filename) {
+		this.user_filename = user_filename;
+	}
 	
 }

@@ -10,23 +10,90 @@
 	</select>
 
 	<update id="updateUser" parameterType="UserDto">
-		update olook_user set user_intro=#{user_intro},
-		user_phone=#{user_phone}
-		where user_email=#{user_email} 	
+		update olook_user 
+		set user_intro=#{user_intro},
+		user_phone=#{user_phone},
+		user_filename=#{user_filename}
+		where user_email=#{user_email} 
 	</update>
 
 	<select id="getboardCnt" resultType="int">
 		select count(*) from look_board where user_email=#{user_email}
 	</select>
 
-	<select id="list" resultType="LookBoard">
-		select * from look_board where user_email=#{user_email} 
-		order by look_idx desc
+	<select id="getMyBoardList" resultType="hashmap" parameterType="hashmap">
+		<!-- <![CDATA[
+			select * from look_board
+			where user_email=#{user_email}
+			order by look_idx desc
+		]]>
+		 -->
+		select * from look_board 
+		where user_email=#{user_email} 
+		order by look_date desc
 	</select>
+	
+	<select id="getPagelist2" parameterType="PageDTO" resultType="LookBoard"> <!-- 수정 -->
+		select * from look_board order by look_idx desc LIMIT #{startNo},#{pageSize}
+	</select>
+	
+	<delete id="deleteboard" parameterType="int">
+		delete from look_board where look_idx=#{idx}
+	</delete>
+	
+	<update id="updateboard" parameterType="LookBoard">
+		update look_board set look_content=#{look_content}, look_top=#{look_top},look_bottom=#{look_bottom}, look_shoes=#{look_shoes},look_acc=#{look_acc},look_height=#{look_height},look_weight=#{look_weight} where look_idx=#{look_idx}
+	</update>
+	
+	
+	<select id="getBoardOne2" parameterType="int" resultType="LookBoard"> <!-- 수정 -->
+		select * from look_board where look_idx=#{idx}
+	</select>
+		
+	<update id="cnt2" parameterType="int"> <!-- 수정 -->
+		update look_board set loview_cnt = loview_cnt+1 
+		where look_idx=#{idx}
+	</update>
+	
+	<update id="cmt" parameterType="int"> <!-- 수정 -->
+		update look_board 
+		set look_cmt = 
+			(SELECT count(*) 
+				FROM look_comment 
+					WHERE look_ref=#{idx})
+		where look_idx=#{idx}
+	</update>
+	
+	<select id="searchList2" parameterType="PageDTO" resultType="LookBoard"> <!-- 수정 -->
+		select * from look_board
+			<if test='"C".equals(field)'>
+				where user_email like concat('%',#{findText},'%')
+			</if>
+			<if test='"N".equals(field)'>
+				where look_content like concat('%',#{findText},'%')
+			</if>
+       		ORDER BY look_idx DESC 
+            limit #{startNo},#{pageSize}	
+	</select>	
+	
+	<select id="searchCount2" parameterType="java.util.Map" resultType="int"> <!-- 수정 -->
+		SELECT count(*) FROM look_board 
+        	<if test='"C".equals(field)'>  <!-- 파라미터 PageDto의 field 속성 -->
+            	where look_content like concat('%', #{findText},'%')
+            </if>
+            <if test='"N".equals(field)'>  
+            	where user_nickname like concat('%', #{findText},'%') <!-- 파라미터 PageDto의 findText 속성 -->
+            </if>     
+   </select>
 	
 	<delete id="deleteUser" parameterType="java.util.Map">
 		delete * from olook_user
 		where user_email=#{user_email}
 	</delete>
+	
+	<delete id="adminforcedDeleteUser">
+		delete * from olook_user
+		where user_email=#{user_email}
+	</delete>	
 </mapper>
 

@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,8 +53,7 @@ public class LookboardController {
 	OlookLikeService like;
 	
 	@RequestMapping(value = { "/", "/list" })
-	private void pageList(HttpServletRequest request, String page, String field, String findText, Model model) {
-		HttpSession session = request.getSession();
+	private void pageList(String page, String field, String findText, Model model) {
 		int currentPage; // 현재 페이지
 		List<LookboardDTO> list;
 		int totalCount;
@@ -72,19 +70,7 @@ public class LookboardController {
 		list = service.getPagelist(new PageDTO(currentPage, pageSize, totalCount, field, findText));
 		modelMap.put("field", field);
 		modelMap.put("findText", findText);
-		OlookLikeDTO dto = new OlookLikeDTO();
-		for (int i = 0; i < list.size(); i++) {
-			dto.setLook_ref(list.get(i).getLook_idx());
-			dto.setUser_email((String)(session.getAttribute("email")));
-			if(dto.getUser_email() == null) {
-				service.look_likedelete(dto);
-			}
-			if(like.likeselect(dto) == 1) {
-				service.look_likeinsert(dto);
-			}else {
-				service.look_likedelete(dto);
-			}
-		}
+
 		if (findText != null) { // 검색하는 경우
 			totalCount = service.searchCount(modelMap); // 서비스 메소드 타입 변경예정
 			pageDto = new PageDTO(currentPage, pageSize, totalCount, field, findText);
@@ -95,12 +81,13 @@ public class LookboardController {
 			pageDto = new PageDTO(currentPage, pageSize, totalCount, field, findText);
 			list = service.getPagelist(new PageDTO(currentPage, pageSize, totalCount, field, findText));// 주석처리 예정
 		}
-		
+
 		modelMap.put("page", pageDto); // view에게 전달할 모델객체 설정
 		modelMap.put("list", list);
 		model.addAllAttributes(modelMap); // 위에 4개의 put 설정은 map객체를 애트리뷰트에 저장한다.
+
 	}
-	
+
 		//좋아요 (리스트에서)
 	@RequestMapping(value = "likeAction")
 	public String likeAction(OlookLikeDTO dto, Model model) {
@@ -110,10 +97,8 @@ public class LookboardController {
 		} else {
 			if (like.like(dto) == 0) {
 				like.likeinsert(dto);
-				service.look_likeinsert(dto);
 			} else {
 				like.likedelete(dto);
-				service.look_likedelete(dto);
 			}
 			service.likeupdate(dto.getLook_ref());
 			return "redirect:/lookboard/list?page=1";

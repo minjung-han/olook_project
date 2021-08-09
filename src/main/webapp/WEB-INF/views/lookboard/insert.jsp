@@ -83,6 +83,8 @@ content = look_content.replace("\r\n","<br>");
 	 			<input type="file" id = "image" accept="image/*" onchange="setThumbnail(event);" name="uploadFile"/>
 	 			<script> function setThumbnail(event) { 
 	 				var reader = new FileReader();
+	 				
+	 				
 	 				reader.onload = function(event) { 
 	 					var img = document.createElement("img"); 
 	 					img.setAttribute("src", event.target.result); 
