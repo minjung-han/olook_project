@@ -17,7 +17,7 @@ public class OlookUserDTO {
 	private String user_phone;
 	private String user_email;
 	private String user_password;
-	private String filename;
+	private String user_filename;
 	private String user_intro;
 	private MultipartFile uploadFile;
 	
@@ -52,12 +52,6 @@ public class OlookUserDTO {
 	public void setUser_password(String user_password) {
 		this.user_password = user_password;
 	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
 	public String getUser_intro() {
 		return user_intro;
 	}
@@ -69,6 +63,12 @@ public class OlookUserDTO {
 	}
 	public void setUploadFile(MultipartFile uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+	public String getUser_filename() {
+		return user_filename;
+	}
+	public void setUser_filename(String user_filename) {
+		this.user_filename = user_filename;
 	}
 	
 }

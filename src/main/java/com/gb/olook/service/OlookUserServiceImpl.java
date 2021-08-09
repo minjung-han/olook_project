@@ -45,7 +45,7 @@ public class OlookUserServiceImpl implements OlookUserService{
             String ext = FilenameUtils.getExtension(originalFileName);   //확장자 구하기
             UUID uuid = UUID.randomUUID();   //UUID 구하기
             String fileName=uuid+"."+ext;
-            userDto.setFilename(fileName);
+            userDto.setUser_filename(fileName);
             uploadFile.transferTo(new File(path + fileName));
         }
 		String encodePwd = pwdEncoder.encode(pwd);

@@ -24,12 +24,12 @@ public class MypageServiceImpl implements MypageService{
 	
 	@Autowired
 	MypageMapper udao;
-	
+
 	@Override
 	public OlookUserDTO getUser(String user_email) {
 		return udao.getUser(user_email);
 	}
-	
+
 	@Override
 	public void updateUser(OlookUserDTO dto) {
 		udao.updateUser(dto);
@@ -47,17 +47,17 @@ public class MypageServiceImpl implements MypageService{
 
 	@Override
 	public void logout(HttpSession session) {
-		session.invalidate();
+		udao.logout(session);
 	}
 
 	@Override
-	public void deleteUser(OlookUserDTO dto) {
-		udao.deleteUser(dto);
+	public int searchCount(Map<String, String> map) {
+		return udao.searchCount(map);
 	}
 
 	@Override
-	public int searchCount(ModelMap modelMap) {
-		return udao.searchCount(modelMap);
+	public int searchCount(ModelMap map) {
+		return udao.searchCount(map);
 	}
 
 	@Override
@@ -66,9 +66,43 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void updateProfile(OlookUserDTO dto) {
-		udao.updateProfile(dto);
+	public LookboardDTO getBoardOne(int idx) {
+		return udao.getBoardOne(idx);
 	}
 
+	@Override
+	public int rcnt(int idx) {
+		return udao.rcnt(idx);
+	}
+
+	@Override
+	public int cnt(int idx) {
+		return udao.cnt(idx);
+	}
+
+	@Override
+	public int updateBoard(LookboardDTO dto) {
+		return udao.updateBoard(dto);
+	}
+
+	@Override
+	public int deleteBoard(int idx) {
+		return udao.deleteBoard(idx);
+	}
+
+	@Override
+	public void deleteUser(OlookUserDTO dto) {
+		udao.deleteUser(dto);
+	}
+
+	@Override
+	public void adminforcedEviction(OlookUserDTO dto) {
+		udao.adminforcedEviction(dto);
+	}
+
+	@Override
+	public List<LookboardDTO> getPagelist(PageDTO pageDTO) {
+		return udao.getPagelist(pageDTO);
+	}
 
 }

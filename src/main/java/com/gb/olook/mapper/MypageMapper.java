@@ -13,21 +13,19 @@ import com.gb.olook.model.PageDTO;
 
 public interface MypageMapper {
 	OlookUserDTO getUser(String user_email);
-	
 	void updateUser(OlookUserDTO dto);	//자기소개 수정
-	
 	int getboardCnt();	//내가 쓴 글 갯수
-
 	List<LookboardDTO> getMyBoardList(String user_email);	//내가 쓴 글 리스트
-
 	void logout(HttpSession session); //로그아웃
-	
-	void deleteUser(OlookUserDTO dto);	//회원탈퇴
-
-	int searchCount(ModelMap modelMap);
-	
+	int searchCount(Map<String,String> map);
+	int searchCount(ModelMap map);
 	List<LookboardDTO> searchList(PageDTO dto);
-	
-	void updateProfile(OlookUserDTO dto);
-	
+	LookboardDTO getBoardOne(int idx);
+	int rcnt(int idx);//조회수 감소
+	int cnt(int idx);
+	int updateBoard(LookboardDTO dto);
+	int deleteBoard(int idx);
+	void deleteUser(OlookUserDTO dto);	//회원탈퇴
+	void adminforcedEviction(OlookUserDTO dto);
+	List<LookboardDTO> getPagelist(PageDTO pageDTO);
 }
