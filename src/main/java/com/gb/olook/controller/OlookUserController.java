@@ -214,7 +214,7 @@ public class OlookUserController {
 		OlookUserDTO user = (OlookUserDTO)session.getAttribute("loginUser");
 		System.out.println(session.getAttribute("loginUser"));
 		String user_email = user.getUser_email();
-//		System.out.println(user_email);
+		System.out.println("mypage = " + user_email);
 		List<LookboardDTO> list = myPageService.getMyBoardList(user_email);
 //		System.out.println(list);
 		

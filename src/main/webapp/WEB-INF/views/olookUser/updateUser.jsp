@@ -42,7 +42,7 @@ function showProfile(){
 		<label for="profile" class="btn btn-primary">프로필 사진 바꾸기</label>
 		<input type="file" id="profile" name="uploadFile" onchange="showProfile()" accept="image/*" style="display: none;">
 		<div class="select_img" style="margin: 20px 0;">
-			<img  width="200px" height="200px" style="border-radius: 50%;" src="${pageContext.request.contextPath}/image/${loginUser.filename }">
+			<img  width="200px" height="200px" style="border-radius: 50%;" src="${pageContext.request.contextPath}/image/${loginUser.user_filename }">
 		</div>
 		<div class="form-group">
 			<label for="user_name" class="src-only">Name</label>

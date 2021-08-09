@@ -76,11 +76,11 @@
 	<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
 		<div class="col-md-6 px-0">
 			<c:choose>
-				<c:when test="${loginUser.filename == null }">
+				<c:when test="${loginUser.user_filename == '' }">
 					<i class="fa fa-user-circle fa-3x"></i>
 				</c:when>
 				<c:otherwise>
-					<img src="${pageContext.request.contextPath}/image/p-${loginUser.filename }" class="img-thumbnail">
+					<img src="${pageContext.request.contextPath}/image/p-${loginUser.user_filename }" class="img-thumbnail">
 				</c:otherwise>
 			</c:choose>
 			<span class="mypage-text" style="font-size: 22px;"><b>${loginUser.user_nickname }</b>님 환영합니다</span>
