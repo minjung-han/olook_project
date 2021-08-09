@@ -78,13 +78,5 @@
 		update look_board set loview_cnt = loview_cnt-1 where look_idx=#{look_idx}
 	</update>
 	
-	<update id ="look_likedelete" parameterType = "com.gb.olook.model.OlookLikeDTO"> 
-		update look_board set look_like_email = 0 where look_idx = #{look_ref}
-	</update> 
-	
-	<update id = "look_likeinsert" parameterType = "com.gb.olook.model.OlookLikeDTO">
-		update look_board set look_like_email = 1 where look_idx = #{look_ref}
-	</update>
-	
 	
 </mapper>

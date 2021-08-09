@@ -43,6 +43,17 @@
 							<c:otherwise>
 								<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/olookUser/myPage">Mypage</a></li>
 								<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/olookUser/logout">Logout</a></li>
+								<!-- <div class="btn-group">
+									<button class="btn btn-secondary dropdown-toggle" onclick="location.href='${pageContext.request.contextPath }/olookUser/myPage'"
+										type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-user-circle fa-2x"></i>
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<span class="dropdown-item">${loginUser.user_nickname }님, 환영합니다</span>
+										<span class="dropdown-item">${loginUser.user_email }</span>
+										<a class="dropdown-item" type="button" href="${pageContext.request.contextPath }/olookUser/myPage">마이페이지</a>
+									</div>
+								</div> -->
 							</c:otherwise>
 						</c:choose>
 					<!-- 	아직 구현 안한 게시판 목록

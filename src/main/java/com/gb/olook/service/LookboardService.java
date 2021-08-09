@@ -8,7 +8,6 @@ import org.springframework.ui.ModelMap;
 
 
 import com.gb.olook.model.LookboardDTO;
-import com.gb.olook.model.OlookLikeDTO;
 import com.gb.olook.model.PageDTO;
 
 public interface LookboardService {
@@ -26,6 +25,4 @@ public interface LookboardService {
 	List<LookboardDTO> searchList(PageDTO dto);
 	int likeupdate(int idx);
 	int rcnt(int idx);//조회수 감소
-	int look_likedelete(OlookLikeDTO dto);
-	int look_likeinsert(OlookLikeDTO dto);
 }

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.gb.olook.model.FreeboardDTO;
 import com.gb.olook.model.LookboardDTO;
-import com.gb.olook.model.OlookLikeDTO;
 import com.gb.olook.model.PageDTO;
 
 
@@ -40,7 +39,5 @@ public interface LookboardMapper {
 
 	int likeupdate(int idx);
 
-	int look_likedelete(OlookLikeDTO dto);
 	
-	int look_likeinsert(OlookLikeDTO dto);
 }

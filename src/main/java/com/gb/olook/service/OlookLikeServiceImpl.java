@@ -39,10 +39,4 @@ public class OlookLikeServiceImpl implements OlookLikeService{
 	      // TODO Auto-generated method stub
 	      return dao.likedelete2(idx);
 	   }
-
-	@Override
-	public int likeselect(OlookLikeDTO dto) {
-		// TODO Auto-generated method stub
-		return dao.likeselect(dto);
-	}
 }
