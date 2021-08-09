@@ -243,18 +243,18 @@ public class OlookUserController {
 		totalCount = myPageService.getboardCnt();
 		pageDto = new PageDTO(currenPage, pageSize, totalCount, field, findText);
 		List<LookboardDTO> list;
-		list = myPageService.getPagelist(new PageDTO(currenPage, pageSize, totalCount, field, findText));
+		list = myPageService.getPagelist2(new PageDTO(currenPage, pageSize, totalCount, field, findText));
 		modelMap.put("field", field);
 		modelMap.put("findText", findText);
 		
 		if(findText!=null) {
-			totalCount = myPageService.searchCount(modelMap);
+			totalCount = myPageService.searchCount2(modelMap);
 			pageDto = new PageDTO(currenPage, pageSize, totalCount, field, findText);
-			list = myPageService.searchList(pageDto);
+			list = myPageService.searchList2(pageDto);
 		}else {
 			totalCount = myPageService.getboardCnt();
 			pageDto = new PageDTO(currenPage, pageSize, totalCount, field, findText);
-			list = myPageService.getPagelist(new PageDTO(currenPage, pageSize, totalCount, field, findText));
+			list = myPageService.getPagelist2(new PageDTO(currenPage, pageSize, totalCount, field, findText));
 		}
 		
 		HttpSession session = request.getSession();
@@ -346,8 +346,8 @@ public class OlookUserController {
 	public String detailView(int idx, Model model, HttpServletRequest request) {
 		HttpSession session  = request.getSession();
 		session.getAttribute("loginUser");
-		myPageService.cnt(idx);
-		model.addAttribute("bean",myPageService.getBoardOne(idx));
+		myPageService.cnt2(idx);
+		model.addAttribute("bean",myPageService.getBoardOne2(idx));
 		model.addAttribute("cmtlist",cmtService.getCmtList(idx));
 		model.addAttribute("cr","\n");
 		
@@ -365,7 +365,7 @@ public class OlookUserController {
 	
 	@RequestMapping(value = "update")
 	public void update(int idx, Model model) {
-		model.addAttribute("bean",myPageService.getBoardOne(idx));
+		model.addAttribute("bean",myPageService.getBoardOne2(idx));
 		model.addAttribute("cr","\n");
 	}
 	

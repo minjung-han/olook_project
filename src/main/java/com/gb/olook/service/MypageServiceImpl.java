@@ -51,23 +51,23 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int searchCount(Map<String, String> map) {
-		return udao.searchCount(map);
+	public int searchCount2(Map<String, String> map) {
+		return udao.searchCount2(map);
 	}
 
 	@Override
-	public int searchCount(ModelMap map) {
-		return udao.searchCount(map);
+	public int searchCount2(ModelMap map) {
+		return udao.searchCount2(map);
 	}
 
 	@Override
-	public List<LookboardDTO> searchList(PageDTO dto) {
-		return udao.searchList(dto);
+	public List<LookboardDTO> searchList2(PageDTO dto) {
+		return udao.searchList2(dto);
 	}
 
 	@Override
-	public LookboardDTO getBoardOne(int idx) {
-		return udao.getBoardOne(idx);
+	public LookboardDTO getBoardOne2(int idx) {
+		return udao.getBoardOne2(idx);
 	}
 
 	@Override
@@ -76,8 +76,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public int cnt(int idx) {
-		return udao.cnt(idx);
+	public int cnt2(int idx) {
+		return udao.cnt2(idx);
 	}
 
 	@Override
@@ -101,8 +101,8 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<LookboardDTO> getPagelist(PageDTO pageDTO) {
-		return udao.getPagelist(pageDTO);
+	public List<LookboardDTO> getPagelist2(PageDTO pageDTO) {
+		return udao.getPagelist2(pageDTO);
 	}
 
 }

@@ -33,7 +33,7 @@
 		order by look_date desc
 	</select>
 	
-	<select id="getPagelist" parameterType="PageDTO" resultType="LookBoard">
+	<select id="getPagelist2" parameterType="PageDTO" resultType="LookBoard"> <!-- 수정 -->
 		select * from look_board order by look_idx desc LIMIT #{startNo},#{pageSize}
 	</select>
 	
@@ -46,16 +46,16 @@
 	</update>
 	
 	
-	<select id="getBoardOne" parameterType="int" resultType="LookBoard">
+	<select id="getBoardOne2" parameterType="int" resultType="LookBoard"> <!-- 수정 -->
 		select * from look_board where look_idx=#{idx}
 	</select>
 		
-	<update id="cnt" parameterType="int">
+	<update id="cnt2" parameterType="int"> <!-- 수정 -->
 		update look_board set loview_cnt = loview_cnt+1 
 		where look_idx=#{idx}
 	</update>
 	
-	<update id="cmt" parameterType="int">
+	<update id="cmt" parameterType="int"> <!-- 수정 -->
 		update look_board 
 		set look_cmt = 
 			(SELECT count(*) 
@@ -64,7 +64,7 @@
 		where look_idx=#{idx}
 	</update>
 	
-	<select id="searchList" parameterType="PageDTO" resultType="LookBoard">
+	<select id="searchList2" parameterType="PageDTO" resultType="LookBoard"> <!-- 수정 -->
 		select * from look_board
 			<if test='"C".equals(field)'>
 				where user_email like concat('%',#{findText},'%')
@@ -76,7 +76,7 @@
             limit #{startNo},#{pageSize}	
 	</select>	
 	
-	<select id="searchCount" parameterType="java.util.Map" resultType="int">
+	<select id="searchCount2" parameterType="java.util.Map" resultType="int"> <!-- 수정 -->
 		SELECT count(*) FROM look_board 
         	<if test='"C".equals(field)'>  <!-- 파라미터 PageDto의 field 속성 -->
             	where look_content like concat('%', #{findText},'%')
